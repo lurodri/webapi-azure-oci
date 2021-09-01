@@ -51,3 +51,13 @@ C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\ru
 C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\obj\Debug\netcoreapp3.1\webapi-azure-oci.csproj.CopyComplete
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\Microsoft.ApplicationInsights.dll
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\Microsoft.ApplicationInsights.AspNetCore.dll
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\Microsoft.AI.DependencyCollector.dll
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\Microsoft.AI.EventCounterCollector.dll
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\Microsoft.AI.PerfCounterCollector.dll
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\Microsoft.AI.WindowsServer.dll
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\Microsoft.AI.ServerTelemetryChannel.dll
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.ApplicationInsights.dll
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\src\08-azure-oci\webapi-azure-oci\webapi-azure-oci\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
