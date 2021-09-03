@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31529.145
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi-azure-oci", "webapi-azure-oci\webapi-azure-oci.csproj", "{D4EC0A68-93FD-43BE-8D30-7EF3C262EAA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webapi-azure-oci", "webapi-azure-oci\webapi-azure-oci.csproj", "{D4EC0A68-93FD-43BE-8D30-7EF3C262EAA6}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2DD32370-4F91-4864-8D80-8E625A05C69E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D4EC0A68-93FD-43BE-8D30-7EF3C262EAA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4EC0A68-93FD-43BE-8D30-7EF3C262EAA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4EC0A68-93FD-43BE-8D30-7EF3C262EAA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DD32370-4F91-4864-8D80-8E625A05C69E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DD32370-4F91-4864-8D80-8E625A05C69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DD32370-4F91-4864-8D80-8E625A05C69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DD32370-4F91-4864-8D80-8E625A05C69E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
