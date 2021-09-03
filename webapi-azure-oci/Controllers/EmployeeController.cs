@@ -29,12 +29,8 @@ namespace webapi_azure_oci.Controllers
             try
             {
 
-                // Establish an operation context and associated telemetry item:
-                using (var operation = telemetryClient.StartOperation<RequestTelemetry>("OracleRequest"))
+                using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
                 {
-                    // Telemetry sent in here will use the same operation ID.
-                    telemetryClient.TrackTrace("OracleQuery"); // or other Track* calls
-
                     con.Open();
                     cmd.BindByName = true;
 
@@ -58,14 +54,7 @@ namespace webapi_azure_oci.Controllers
                         }
                         );
                     }
-
-                    // Set properties of containing telemetry item--for example:
-                    operation.Telemetry.ResponseCode = "200";
-
-                    // Optional: explicitly send telemetry item:
-                    telemetryClient.StopOperation(operation);
-
-                } // When operation is disposed, telemetry item is sent.
+                }
                 return empList.ToArray();
             }
             catch (Exception ex)
