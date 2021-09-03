@@ -25,7 +25,15 @@ namespace webapi_azure_oci
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplicationInsightsTelemetry();
+            Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions aiOptions
+                = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
+                {
+                    EnableDependencyTrackingTelemetryModule = true,
+                    EnablePerformanceCounterCollectionModule = true,
+                    EnableRequestTrackingTelemetryModule = true
+                };
+
+            services.AddApplicationInsightsTelemetry(aiOptions);
             services.AddControllers();
         }
 
