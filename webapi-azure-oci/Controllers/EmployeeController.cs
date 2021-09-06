@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Client;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.ApplicationInsights.Extensibility;
 
 namespace webapi_azure_oci.Controllers
 {
@@ -15,9 +13,16 @@ namespace webapi_azure_oci.Controllers
     public class EmployeeController : ControllerBase
     {
 
-        private readonly TelemetryClient telemetryClient = new TelemetryClient();
+        private TelemetryClient telemetryClient;
+        
+        public EmployeeController()
+        {
+            TelemetryConfiguration configuration = TelemetryConfiguration.CreateDefault();
+            configuration.InstrumentationKey = "6ece7b96-a7a0-4de1-8039-8d7537893c73";
+            telemetryClient = new TelemetryClient(configuration);
+        }
 
-        [HttpGet]
+    [HttpGet]
         public IEnumerable<Employee> Get()
         {
 

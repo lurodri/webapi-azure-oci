@@ -1,5 +1,3 @@
-using System;
-
 namespace webapi_azure_oci
 {
     public class Employee
