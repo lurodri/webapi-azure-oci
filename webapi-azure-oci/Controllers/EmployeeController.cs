@@ -21,9 +21,9 @@ namespace webapi_azure_oci.Controllers
         public EmployeeController()
         {
             //TelemetryConfiguration configuration = new TelemetryConfiguration();
-            var configuration = new TelemetryConfiguration();
-            configuration.InstrumentationKey = "6bca0969-e2e2-4dbe-914a-5aa25a48f56c";
-            telemetryClient = new TelemetryClient(configuration);
+            //var configuration = new TelemetryConfiguration();
+            //configuration.InstrumentationKey = "6bca0969-e2e2-4dbe-914a-5aa25a48f56c";
+            //telemetryClient = new TelemetryClient(configuration);
         }
 
         [HttpGet]
@@ -37,8 +37,8 @@ namespace webapi_azure_oci.Controllers
             OracleCommand cmd = con.CreateCommand();
             try
             {
-                using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
-                {
+                //using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
+                //{
                     con.Open();
                     cmd.BindByName = true; 
 
@@ -62,7 +62,7 @@ namespace webapi_azure_oci.Controllers
                         }
                         );
                     }
-                }
+                //}
             }
             catch (Exception ex)
             {
