@@ -18,7 +18,7 @@ namespace webapi_azure_oci.Controllers
         
         public EmployeeController()
         {
-            TelemetryConfiguration configuration = TelemetryConfiguration.CreateDefault();
+            TelemetryConfiguration configuration = new TelemetryConfiguration();
             QuickPulseTelemetryProcessor quickPulseProcessor = null;
             configuration.DefaultTelemetrySink.TelemetryProcessorChainBuilder
                 .Use((next) =>
@@ -47,7 +47,6 @@ namespace webapi_azure_oci.Controllers
             string conString = "User Id=poc;Password=poc_OCIAzure_2k21;Data Source=10.1.0.250:1521/db0901_pdb1.clientsubnet.vncdatabase.oraclevcn.com;";
             List<Employee> empList = new List<Employee>();
             
-            DateTime OracleRequestTime = DateTime.Now;
             using OracleConnection con = new OracleConnection(conString);
             using OracleCommand cmd = con.CreateCommand();
             try
@@ -79,7 +78,7 @@ namespace webapi_azure_oci.Controllers
                         }
                         );
                     }
-            }
+                }
                 telemetryClient.TrackRequest("Employee Request", HttpRequestTime, (DateTime.Now - HttpRequestTime), "200", true);
                 return empList.ToArray();
             }
