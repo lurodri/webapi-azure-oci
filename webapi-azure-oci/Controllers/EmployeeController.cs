@@ -52,8 +52,8 @@ namespace webapi_azure_oci.Controllers
             using OracleCommand cmd = con.CreateCommand();
             try
             {
-                using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
-                {
+                //using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
+                //{
                     con.Open();
                     cmd.BindByName = true; 
 
@@ -79,7 +79,7 @@ namespace webapi_azure_oci.Controllers
                         }
                         );
                     }
-                }
+                //}
                 telemetryClient.TrackRequest("Employee Request", HttpRequestTime, (DateTime.Now - HttpRequestTime), "200", true);
                 return empList.ToArray();
             }
