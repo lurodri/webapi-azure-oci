@@ -77,6 +77,10 @@ namespace webapi_azure_oci.Controllers
             {
                 reader.Dispose();
             }
+            if (cmd != null) 
+            {
+                cmd.Dispose();
+            }
             if (con != null)
             {
                 con.Close();
