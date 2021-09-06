@@ -22,7 +22,7 @@ namespace webapi_azure_oci.Controllers
         {
             //TelemetryConfiguration configuration = new TelemetryConfiguration();
             var configuration = new TelemetryConfiguration();
-            configuration.InstrumentationKey = "6ece7b96-a7a0-4de1-8039-8d7537893c73";
+            configuration.InstrumentationKey = "6bca0969-e2e2-4dbe-914a-5aa25a48f56c";
             telemetryClient = new TelemetryClient(configuration);
         }
 
