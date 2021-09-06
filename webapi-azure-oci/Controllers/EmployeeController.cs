@@ -43,14 +43,15 @@ namespace webapi_azure_oci.Controllers
         public IEnumerable<Employee> Get()
         {
 
+            DateTime HttpRequestTime = DateTime.Now;
             string conString = "User Id=poc;Password=poc_OCIAzure_2k21;Data Source=10.1.0.250:1521/db0901_pdb1.clientsubnet.vncdatabase.oraclevcn.com;";
             List<Employee> empList = new List<Employee>();
-
+            
+            DateTime OracleRequestTime = DateTime.Now;
             using OracleConnection con = new OracleConnection(conString);
             using OracleCommand cmd = con.CreateCommand();
             try
             {
-
                 using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
                 {
                     con.Open();
@@ -66,6 +67,8 @@ namespace webapi_azure_oci.Controllers
 
                     //Execute the command and use DataReader to display the data
                     OracleDataReader reader = cmd.ExecuteReader();
+                    telemetryClient.TrackDependency("Oracle Request", "Oracle Query", "select first_name, last_name from employees where department_id = :id",
+                        OracleRequestTime, (DateTime.Now - OracleRequestTime), true);
 
                     while (reader.Read())
                     {
@@ -77,6 +80,7 @@ namespace webapi_azure_oci.Controllers
                         );
                     }
                 }
+                telemetryClient.TrackRequest("Employee Request", HttpRequestTime, (DateTime.Now - HttpRequestTime), "200", true);
                 return empList.ToArray();
             }
             catch (Exception ex)
