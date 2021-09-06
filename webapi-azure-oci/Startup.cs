@@ -37,7 +37,7 @@ namespace webapi_azure_oci
             services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) =>
             {
                 module.EnableRequestIdHeaderInjectionInW3CMode = true;
-                module.EnableSqlCommandTextInstrumentation = true;
+                //module.EnableSqlCommandTextInstrumentation = true;
             });
 
             // The following removes PerformanceCollectorModule to disable perf-counter collection.
