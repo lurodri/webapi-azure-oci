@@ -93,15 +93,15 @@ namespace webapi_azure_oci.Controllers
                     LastName = null
                 });
             }
-            
-            if(con != null)
-            {
-                con.CloseAsync();
-            }
             if (reader != null)
             {
                 reader.Dispose();
             }
+            if (con != null)
+            {
+                con.CloseAsync();
+            }
+
             GC.Collect();
             return empList.ToArray();
         }
