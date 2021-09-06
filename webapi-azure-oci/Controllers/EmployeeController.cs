@@ -5,6 +5,7 @@ using Oracle.ManagedDataAccess.Client;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse;
 
 namespace webapi_azure_oci.Controllers
 {
@@ -18,11 +19,27 @@ namespace webapi_azure_oci.Controllers
         public EmployeeController()
         {
             TelemetryConfiguration configuration = TelemetryConfiguration.CreateDefault();
-            configuration.InstrumentationKey = "6ece7b96-a7a0-4de1-8039-8d7537893c73";
+            QuickPulseTelemetryProcessor quickPulseProcessor = null;
+            configuration.DefaultTelemetrySink.TelemetryProcessorChainBuilder
+                .Use((next) =>
+                {
+                    quickPulseProcessor = new QuickPulseTelemetryProcessor(next);
+                    return quickPulseProcessor;
+                })
+                .Build();
+
+            var quickPulseModule = new QuickPulseTelemetryModule
+            {
+                AuthenticationApiKey = "6ece7b96-a7a0-4de1-8039-8d7537893c73"
+            };
+            quickPulseModule.Initialize(configuration);
+            quickPulseModule.RegisterTelemetryProcessor(quickPulseProcessor);
+
             telemetryClient = new TelemetryClient(configuration);
+
         }
 
-    [HttpGet]
+        [HttpGet]
         public IEnumerable<Employee> Get()
         {
 
