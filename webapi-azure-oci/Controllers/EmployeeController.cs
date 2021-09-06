@@ -50,6 +50,7 @@ namespace webapi_azure_oci.Controllers
 
             string conString = "User Id=poc;Password=poc_OCIAzure_2k21;Data Source=10.1.0.250:1521/db0901_pdb1.clientsubnet.vncdatabase.oraclevcn.com;";
             List<Employee> empList = new List<Employee>();
+            OracleDataReader reader = null;
 
             using (OracleConnection con = new OracleConnection(conString))
             {
@@ -71,7 +72,7 @@ namespace webapi_azure_oci.Controllers
                             cmd.Parameters.Add(id);
 
                             //Execute the command and use DataReader to display the data
-                            OracleDataReader reader = cmd.ExecuteReader();
+                            reader = cmd.ExecuteReader();
 
                             while (reader.Read())
                             {
@@ -82,9 +83,7 @@ namespace webapi_azure_oci.Controllers
                                 }
                                 );
                             }
-                            reader.Dispose();
                         }
-                        return empList.ToArray();
                     }
                     catch (Exception ex)
                     {
@@ -94,14 +93,14 @@ namespace webapi_azure_oci.Controllers
                             FirstName = null,
                             LastName = null
                         });
-                        return empList.ToArray();
-                    }
-                    finally
-                    {
-
                     }
                 }
             }
+            if (reader != null)
+            {
+                reader.Dispose();
+            }
+            return empList.ToArray();
         }
     }
 }
