@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse;
+using Microsoft.ApplicationInsights.Extensibility.EventCounterCollector;
+using Microsoft.ApplicationInsights.DependencyCollector;
+using System.Linq;
+using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector;
 
 namespace webapi_azure_oci
 {
@@ -18,15 +23,31 @@ namespace webapi_azure_oci
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions aiOptions
-            //    = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
-            //    {
-            //        EnableDependencyTrackingTelemetryModule = true,
-            //        EnablePerformanceCounterCollectionModule = true,
-            //        EnableRequestTrackingTelemetryModule = true
-            //    };
+            Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions aiOptions
+                = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
+                {
+                    EnableDependencyTrackingTelemetryModule = true,
+                    EnablePerformanceCounterCollectionModule = true,
+                    EnableRequestTrackingTelemetryModule = true
+                };
 
-            //services.AddApplicationInsightsTelemetry(aiOptions);
+            services.AddApplicationInsightsTelemetry(aiOptions);
+
+            // The following removes all default counters from EventCounterCollectionModule, and adds a single one.
+            services.ConfigureTelemetryModule<EventCounterCollectionModule>(
+                    (module, o) =>
+                    {
+                        module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "gen-0-size"));
+                    }
+                );
+
+            // The following removes PerformanceCollectorModule to disable perf-counter collection.
+            // Similarly, any other default modules can be removed.
+            var performanceCounterService = services.FirstOrDefault<ServiceDescriptor>(t => t.ImplementationType == typeof(PerformanceCollectorModule));
+            if (performanceCounterService != null)
+            {
+                services.Remove(performanceCounterService);
+            }
             services.AddControllers();
         }
 
