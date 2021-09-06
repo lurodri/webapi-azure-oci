@@ -52,54 +52,57 @@ namespace webapi_azure_oci.Controllers
             List<Employee> empList = new List<Employee>();
             OracleDataReader reader = null;
 
-            using (OracleConnection con = new OracleConnection(conString))
+            OracleConnection con = new OracleConnection(conString);
+            OracleCommand cmd = con.CreateCommand();
+            try
             {
-                using (OracleCommand cmd = con.CreateCommand())
+                using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
                 {
-                    try
+                    con.Open();
+                    cmd.BindByName = true;
+
+                    //Use the command to display employee names from 
+                    // the EMPLOYEES table
+                    cmd.CommandText = "select first_name, last_name from employees where department_id = :id";
+
+                    // Assign id to the department number 50 
+                    OracleParameter id = new OracleParameter("id", 100);
+                    cmd.Parameters.Add(id);
+
+                    //Execute the command and use DataReader to display the data
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
                     {
-                        using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
-                        {
-                            con.Open();
-                            cmd.BindByName = true;
-
-                            //Use the command to display employee names from 
-                            // the EMPLOYEES table
-                            cmd.CommandText = "select first_name, last_name from employees where department_id = :id";
-
-                            // Assign id to the department number 50 
-                            OracleParameter id = new OracleParameter("id", 100);
-                            cmd.Parameters.Add(id);
-
-                            //Execute the command and use DataReader to display the data
-                            reader = cmd.ExecuteReader();
-
-                            while (reader.Read())
-                            {
-                                empList.Add(new Employee()
-                                {
-                                    FirstName = reader.GetString(0),
-                                    LastName = reader.GetString(1)
-                                }
-                                );
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        //await context.Response.WriteAsync(ex.Message);
                         empList.Add(new Employee()
                         {
-                            FirstName = null,
-                            LastName = null
-                        });
+                            FirstName = reader.GetString(0),
+                            LastName = reader.GetString(1)
+                        }
+                        );
                     }
+                    con.CloseAsync();
                 }
+            }
+            catch (Exception ex)
+            {
+                //await context.Response.WriteAsync(ex.Message);
+                empList.Add(new Employee()
+                {
+                    FirstName = null,
+                    LastName = null
+                });
+            }
+            
+            if(con != null)
+            {
+                con.CloseAsync();
             }
             if (reader != null)
             {
                 reader.Dispose();
             }
+            GC.Collect();
             return empList.ToArray();
         }
     }
