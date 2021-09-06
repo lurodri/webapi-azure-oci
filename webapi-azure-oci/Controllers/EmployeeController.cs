@@ -15,13 +15,11 @@ namespace webapi_azure_oci.Controllers
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
     {
-
         private TelemetryClient telemetryClient;
         
         public EmployeeController()
         {
-            //TelemetryConfiguration configuration = new TelemetryConfiguration();
-            var configuration = new TelemetryConfiguration();
+            TelemetryConfiguration configuration = new TelemetryConfiguration();
             configuration.InstrumentationKey = "6bca0969-e2e2-4dbe-914a-5aa25a48f56c";
             telemetryClient = new TelemetryClient(configuration);
         }
@@ -85,6 +83,7 @@ namespace webapi_azure_oci.Controllers
             {
                 con.Close();
             }
+            telemetryClient.Flush();
             return empList.ToArray();
         }
     }
