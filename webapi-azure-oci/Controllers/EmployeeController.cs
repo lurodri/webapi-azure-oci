@@ -98,10 +98,9 @@ namespace webapi_azure_oci.Controllers
             }
             if (con != null)
             {
-                con.CloseAsync();
+                con.Close();
             }
 
-            GC.Collect();
             return empList.ToArray();
         }
     }
