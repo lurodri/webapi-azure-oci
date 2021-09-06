@@ -8,6 +8,7 @@ using Microsoft.ApplicationInsights.Extensibility.EventCounterCollector;
 using Microsoft.ApplicationInsights.DependencyCollector;
 using System.Linq;
 using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector;
+using Microsoft.ApplicationInsights.AspNetCore;
 
 namespace webapi_azure_oci
 {
@@ -33,13 +34,11 @@ namespace webapi_azure_oci
 
             services.AddApplicationInsightsTelemetry(aiOptions);
 
-            // The following removes all default counters from EventCounterCollectionModule, and adds a single one.
-            services.ConfigureTelemetryModule<EventCounterCollectionModule>(
-                    (module, o) =>
-                    {
-                        module.Counters.Add(new EventCounterCollectionRequest("System.Runtime", "gen-0-size"));
-                    }
-                );
+            services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) =>
+            {
+                module.EnableRequestIdHeaderInjectionInW3CMode = true;
+                module.EnableSqlCommandTextInstrumentation = true;
+            });
 
             // The following removes PerformanceCollectorModule to disable perf-counter collection.
             // Similarly, any other default modules can be removed.

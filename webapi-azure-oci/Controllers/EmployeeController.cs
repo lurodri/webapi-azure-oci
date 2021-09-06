@@ -22,23 +22,22 @@ namespace webapi_azure_oci.Controllers
         {
             //TelemetryConfiguration configuration = new TelemetryConfiguration();
             var configuration = new TelemetryConfiguration();
-            configuration.InstrumentationKey = "6ece7b96-a7a0-4de1-8039-8d7537893c73";
 
-            QuickPulseTelemetryProcessor quickPulseProcessor = null;
-            configuration.DefaultTelemetrySink.TelemetryProcessorChainBuilder
-                .Use((next) =>
-                {
-                    quickPulseProcessor = new QuickPulseTelemetryProcessor(next);
-                    return quickPulseProcessor;
-                })
-                .Build();
+            //QuickPulseTelemetryProcessor quickPulseProcessor = null;
+            //configuration.DefaultTelemetrySink.TelemetryProcessorChainBuilder
+            //    .Use((next) =>
+            //    {
+            //        quickPulseProcessor = new QuickPulseTelemetryProcessor(next);
+            //        return quickPulseProcessor;
+            //    })
+            //    .Build();
 
-            var quickPulseModule = new QuickPulseTelemetryModule
-            {
-                AuthenticationApiKey = "6ece7b96-a7a0-4de1-8039-8d7537893c73"
-            };
-            quickPulseModule.Initialize(configuration);
-            quickPulseModule.RegisterTelemetryProcessor(quickPulseProcessor);
+            //var quickPulseModule = new QuickPulseTelemetryModule
+            //{
+            //    AuthenticationApiKey = "6ece7b96-a7a0-4de1-8039-8d7537893c73"
+            //};
+            //quickPulseModule.Initialize(configuration);
+            //quickPulseModule.RegisterTelemetryProcessor(quickPulseProcessor);
 
             telemetryClient = new TelemetryClient(configuration);
         }
