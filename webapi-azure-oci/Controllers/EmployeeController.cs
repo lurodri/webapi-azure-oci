@@ -17,7 +17,7 @@ namespace webapi_azure_oci.Controllers
     {
         private TelemetryClient telemetryClient;
         
-        public >EmployeeController()
+        public EmployeeController()
         {
             TelemetryConfiguration configuration = new TelemetryConfiguration();
             configuration.InstrumentationKey = "6bca0969-e2e2-4dbe-914a-5aa25a48f56c";
