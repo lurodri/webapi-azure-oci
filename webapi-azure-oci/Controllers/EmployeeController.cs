@@ -29,8 +29,7 @@ namespace webapi_azure_oci.Controllers
         [HttpGet]
         public IEnumerable<Employee> Get()
         {
-
-            string conString = "User Id=poc;Password=poc_OCIAzure_2k21;Data Source=10.1.0.250:1521/db0901_pdb1.clientsubnet.vncdatabase.oraclevcn.com;";
+            string conString = "User Id=poc;Password=poc_OCIAzure_2k21;Data Source=exacs-vcp-rex4h-scan.exaprivvcp.vncdatabase.oraclevcn.com:1521/pdb_b3.exaprivvcp.vncdatabase.oraclevcn.com;";
             List<Employee> empList = new List<Employee>();
             OracleDataReader reader = null;
 
