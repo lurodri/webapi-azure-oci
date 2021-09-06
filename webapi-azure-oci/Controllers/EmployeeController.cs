@@ -52,8 +52,8 @@ namespace webapi_azure_oci.Controllers
             using OracleCommand cmd = con.CreateCommand();
             try
             {
-                //using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
-                //{
+                using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
+                {
                     con.Open();
                     cmd.BindByName = true; 
 
@@ -67,8 +67,8 @@ namespace webapi_azure_oci.Controllers
 
                     //Execute the command and use DataReader to display the data
                     OracleDataReader reader = cmd.ExecuteReader();
-                    telemetryClient.TrackDependency("Oracle Request", "Oracle Query", "select first_name, last_name from employees where department_id = :id",
-                        OracleRequestTime, (DateTime.Now - OracleRequestTime), true);
+                    //telemetryClient.TrackDependency("Oracle Request", "Oracle Query", "select first_name, last_name from employees where department_id = :id",
+                    //    OracleRequestTime, (DateTime.Now - OracleRequestTime), true);
 
                     while (reader.Read())
                     {
@@ -79,7 +79,7 @@ namespace webapi_azure_oci.Controllers
                         }
                         );
                     }
-                //}
+            }
                 telemetryClient.TrackRequest("Employee Request", HttpRequestTime, (DateTime.Now - HttpRequestTime), "200", true);
                 return empList.ToArray();
             }
