@@ -81,7 +81,6 @@ namespace webapi_azure_oci.Controllers
                         }
                         );
                     }
-                    con.CloseAsync();
                 }
             }
             catch (Exception ex)
