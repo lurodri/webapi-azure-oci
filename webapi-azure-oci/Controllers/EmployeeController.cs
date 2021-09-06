@@ -6,6 +6,8 @@ using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse;
+using Microsoft.ApplicationInsights.DependencyCollector;
+using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector;
 
 namespace webapi_azure_oci.Controllers
 {
@@ -18,7 +20,10 @@ namespace webapi_azure_oci.Controllers
         
         public EmployeeController()
         {
-            TelemetryConfiguration configuration = new TelemetryConfiguration();
+            //TelemetryConfiguration configuration = new TelemetryConfiguration();
+            var configuration = TelemetryConfiguration.CreateDefault();
+            configuration.InstrumentationKey = "6ece7b96-a7a0-4de1-8039-8d7537893c73";
+
             QuickPulseTelemetryProcessor quickPulseProcessor = null;
             configuration.DefaultTelemetrySink.TelemetryProcessorChainBuilder
                 .Use((next) =>
@@ -36,7 +41,6 @@ namespace webapi_azure_oci.Controllers
             quickPulseModule.RegisterTelemetryProcessor(quickPulseProcessor);
 
             telemetryClient = new TelemetryClient(configuration);
-
         }
 
         [HttpGet]
@@ -79,7 +83,7 @@ namespace webapi_azure_oci.Controllers
                         );
                     }
                 }
-                telemetryClient.TrackRequest("Employee Request", HttpRequestTime, (DateTime.Now - HttpRequestTime), "200", true);
+                //telemetryClient.TrackRequest("Employee Request", HttpRequestTime, (DateTime.Now - HttpRequestTime), "200", true);
                 return empList.ToArray();
             }
             catch (Exception ex)
