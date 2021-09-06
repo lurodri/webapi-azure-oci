@@ -24,29 +24,29 @@ namespace webapi_azure_oci
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions aiOptions
-            //    = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
-            //    {
-            //        EnableDependencyTrackingTelemetryModule = true,
-            //        EnablePerformanceCounterCollectionModule = true,
-            //        EnableRequestTrackingTelemetryModule = true
-            //    };
+            Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions aiOptions
+                = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
+                {
+                    EnableDependencyTrackingTelemetryModule = true,
+                    EnablePerformanceCounterCollectionModule = true,
+                    EnableRequestTrackingTelemetryModule = true
+                };
 
-            //services.AddApplicationInsightsTelemetry(aiOptions);
+            services.AddApplicationInsightsTelemetry(aiOptions);
 
-            //services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) =>
-            //{
-            //    module.EnableRequestIdHeaderInjectionInW3CMode = true;
-            //    module.EnableSqlCommandTextInstrumentation = true;
-            //});
+            services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) =>
+            {
+                module.EnableRequestIdHeaderInjectionInW3CMode = true;
+                module.EnableSqlCommandTextInstrumentation = true;
+            });
 
-            //// The following removes PerformanceCollectorModule to disable perf-counter collection.
-            //// Similarly, any other default modules can be removed.
-            //var performanceCounterService = services.FirstOrDefault<ServiceDescriptor>(t => t.ImplementationType == typeof(PerformanceCollectorModule));
-            //if (performanceCounterService != null)
-            //{
-            //    services.Remove(performanceCounterService);
-            //}
+            // The following removes PerformanceCollectorModule to disable perf-counter collection.
+            // Similarly, any other default modules can be removed.
+            var performanceCounterService = services.FirstOrDefault<ServiceDescriptor>(t => t.ImplementationType == typeof(PerformanceCollectorModule));
+            if (performanceCounterService != null)
+            {
+                services.Remove(performanceCounterService);
+            }
             services.AddControllers();
         }
 
