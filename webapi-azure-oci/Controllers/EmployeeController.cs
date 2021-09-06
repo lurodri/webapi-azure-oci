@@ -59,7 +59,7 @@ namespace webapi_azure_oci.Controllers
                 using (var operation = telemetryClient.StartOperation<DependencyTelemetry>("Oracle Request"))
                 {
                     con.Open();
-                    cmd.BindByName = true;
+                    cmd.BindByName = true; 
 
                     //Use the command to display employee names from 
                     // the EMPLOYEES table
