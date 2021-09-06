@@ -21,7 +21,7 @@ namespace webapi_azure_oci.Controllers
         public EmployeeController()
         {
             //TelemetryConfiguration configuration = new TelemetryConfiguration();
-            var configuration = TelemetryConfiguration.CreateDefault();
+            var configuration = new TelemetryConfiguration();
             configuration.InstrumentationKey = "6ece7b96-a7a0-4de1-8039-8d7537893c73";
 
             QuickPulseTelemetryProcessor quickPulseProcessor = null;
